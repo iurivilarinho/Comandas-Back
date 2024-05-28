@@ -48,6 +48,9 @@ public class Produto {
 	@Column(nullable = false)
 	private Boolean status;
 
+	@Column(nullable = false)
+	private Float valorUnitario;
+
 	public Produto() {
 
 	}
@@ -114,6 +117,14 @@ public class Produto {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public Float getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Float valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
 }

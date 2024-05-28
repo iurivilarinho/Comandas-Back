@@ -1,11 +1,13 @@
 package com.br.comanda.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.br.comanda.models.Produto;
 import com.br.comanda.repository.ProdutoRepository;
@@ -18,6 +20,9 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private DocumentoService documentoService;
 
 	@Transactional(readOnly = true)
 	public Produto buscarProdutoPorId(Long id) {
@@ -33,6 +38,12 @@ public class ProdutoService {
 		} else {
 			return produtoRepository.findAll();
 		}
+	}
+
+	@Transactional
+	public void cadastrarImagemProduto(Long id, MultipartFile file) throws IOException {
+		Produto produto = buscarProdutoPorId(id);
+		produto.setImagem(documentoService.converterEmDocumento(file));
 	}
 
 }
